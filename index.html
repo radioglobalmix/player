@@ -43,7 +43,6 @@
             gap: 20px;
         }
 
-        /* Estilo do Indicador LIVE */
         .live-indicator {
             display: flex;
             align-items: center;
@@ -203,7 +202,7 @@
 <body>
 
     <div id="bg-main"></div>
-    <audio id="radio" src="https://s2.stmxp.net:7220/;" preload="auto"></audio>
+    <audio id="radio" src="https://s2.stmxp.net:7220/;" preload="auto" autoplay></audio>
 
     <div class="wrapper">
         <div class="air-info">
@@ -310,7 +309,6 @@
         audio.onwaiting = () => updateUI(false, true);
         document.getElementById('vol-control').oninput = (e) => audio.volume = e.target.value;
 
-        // API Direta Shoutcast JSONP
         function fetchMetadata() {
             $.getJSON(statsUrl + "/stats?sid=1&json=1&callback=?", function(r){
                 if(r) {
@@ -328,7 +326,18 @@
             });
         }
 
-        fetchMetadata();
+
+        window.addEventListener('load', () => {
+            fetchMetadata();
+
+            audio.play().then(() => {
+                updateUI(true, false);
+            }).catch(() => {
+                console.log("Autoplay bloqueado pelo navegador. Interação necessária.");
+                updateUI(false, false);
+            });
+        });
+
         setInterval(fetchMetadata, 8000);
         document.addEventListener("contextmenu", e => e.preventDefault());
     </script>
