@@ -12,36 +12,44 @@
         :root { --exa-blue: #0084ff; --exa-green: #25d366; --dark-card: rgba(35, 37, 42, 0.8); }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body, html { width: 100%; height: 100%; font-family: 'Montserrat', sans-serif; overflow-x: hidden; color: white; }
-        #bg-main { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://i.postimg.cc/s23Np5rw/3.jpg') no-repeat center center; background-size: cover; }
+        #bg-main { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://i.postimg.cc/s23Np5rw/3.jpg') no-repeat center center; background-size: cover; transition: 0.8s ease-in-out; }
+        
         .wrapper { display: grid; grid-template-columns: 1fr 1.5fr 1fr; height: calc(100vh - 100px); align-items: center; padding: 0 60px; gap: 20px; }
         .live-indicator { display: flex; align-items: center; gap: 8px; background: rgba(0, 0, 0, 0.5); width: fit-content; padding: 5px 12px; border-radius: 5px; margin-bottom: 15px; border: 1px solid rgba(255, 255, 255, 0.1); }
         .live-dot { width: 10px; height: 10px; background: #ff0000; border-radius: 50%; box-shadow: 0 0 8px #ff0000; animation: blink 1s infinite; }
         .live-text { font-weight: 800; font-size: 0.8rem; text-transform: uppercase; }
+        
         .artist-title, .song-title { background: linear-gradient(to right, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff); background-size: 400% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: rainbow 8s linear infinite; }
         .artist-title { font-size: 2.2rem; font-weight: 800; font-style: italic; text-transform: uppercase; line-height: 1.1; }
         .song-title { font-size: 1.3rem; font-weight: 700; text-transform: uppercase; }
+        
         .center-stage { display: flex; flex-direction: column; align-items: center; gap: 25px; }
         .top-logo { height: 100px; width: auto; margin-top: -30px; }
-        .big-cover { width: 360px; height: 360px; border-radius: 20px; position: relative; border: 12px solid transparent; border-image: conic-gradient(red, yellow, lime, aqua, blue, magenta, red) 1; animation: rotateBorder 4s linear infinite; box-shadow: 0 30px 60px rgba(0,0,0,0.7); display: flex; justify-content: center; align-items: center; overflow: hidden; cursor: pointer; }
-        .big-cover img { width: 100%; height: 100%; object-fit: contain; }
+        .big-cover { width: 360px; height: 360px; border-radius: 20px; position: relative; border: 12px solid transparent; border-image: conic-gradient(red, yellow, lime, aqua, blue, magenta, red) 1; animation: rotateBorder 4s linear infinite; box-shadow: 0 30px 60px rgba(0,0,0,0.7); display: flex; justify-content: center; align-items: center; overflow: hidden; cursor: pointer; background-size: cover; background-position: center; transition: background-image 0.5s ease; }
+        
         .loader-wrap { position: absolute; width: 170px; height: 170px; display: none; z-index: 20; }
         .arc { position: absolute; border: 8px solid transparent; border-radius: 50%; animation: spin 1s linear infinite; }
         .arc-blue { width: 100%; height: 100%; border-top-color: var(--exa-blue); }
         .arc-green { width: 80%; height: 80%; top: 10%; left: 10%; border-bottom-color: var(--exa-green); animation-direction: reverse; }
-        .play-main { position: absolute; background: none; border: none; font-size: 6rem; color: var(--exa-blue); pointer-events: none; z-index: 10; }
+        
+        .play-main { position: absolute; background: none; border: none; font-size: 6rem; color: var(--exa-blue); pointer-events: none; z-index: 10; text-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+        
         .social-card { background: var(--dark-card); padding: 40px 25px; border-radius: 15px; width: 320px; text-align: center; justify-self: end; backdrop-filter: blur(10px); }
         .social-icons { display: flex; justify-content: center; gap: 35px; margin-bottom: 25px; }
-        .social-icons i { font-size: 3rem; transition: 0.3s; }
-        .fa-facebook-square { color: #1877F2; } .fa-globe { color: #25D366; }
+        .social-icons i { font-size: 3rem; transition: 0.3s; color: white; }
+        .fa-facebook-square { color: #1877F2 !important; } .fa-globe { color: #25D366 !important; }
+        
         .listeners-wrap { margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; }
         .listeners-count { font-size: 3.5rem; font-weight: 800; background: linear-gradient(to right, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff); background-size: 400% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: rainbow 8s linear infinite; display: block; }
+        
         .footer-bar { position: fixed; bottom: 0; width: 100%; height: 100px; background: #ffffff; color: #333; display: grid; grid-template-columns: 1.3fr 0.4fr 1.3fr; align-items: center; z-index: 100; }
         .foot-left { display: flex; align-items: flex-start; gap: 15px; height: 100%; overflow: hidden; }
         .foot-logo-img { height: 100px; }
         .foot-text-box { display: flex; flex-direction: column; margin-top: 5px; width: 100%; overflow: hidden; }
         .label-pill { background: #ff0000; color: #fff; padding: 3px 12px; border-radius: 20px; font-weight: 800; font-size: 0.7rem; text-transform: uppercase; display: inline-flex; align-items: center; gap: 8px; width: fit-content; }
         .scroll-container { width: 100%; white-space: nowrap; overflow: hidden; margin-top: 5px; }
-        .scroll-text { display: inline-block; font-weight: 800; font-size: 1.35rem; text-transform: uppercase; padding-left: 100%; animation: scroll 20s linear infinite; color: #111; }
+        .scroll-text { display: inline-block; font-weight: 800; font-size: 1.35rem; text-transform: uppercase; padding-left: 100%; animation: scroll 15s linear infinite; color: #111; }
+        
         .foot-center { display: flex; justify-content: center; }
         .play-foot { width: 75px; height: 75px; border-radius: 50%; border: 4px solid var(--exa-green); background: none; cursor: pointer; display: flex; justify-content: center; align-items: center; font-size: 2rem; color: var(--exa-blue); }
         .foot-right { display: flex; justify-content: center; padding-right: 15%; }
@@ -49,6 +57,7 @@
         .vol-icon { font-size: 2.3rem; color: var(--exa-blue); }
         .vol-slider { position: absolute; opacity: 0; width: 100%; cursor: pointer; accent-color: var(--exa-blue); transition: 0.3s; }
         .vol-wrap:hover .vol-icon { opacity: 0; } .vol-wrap:hover .vol-slider { opacity: 1; }
+
         @media (max-width: 768px) {
             .wrapper { grid-template-columns: 1fr; padding: 20px; padding-bottom: 120px; display: flex; flex-direction: column; }
             .air-info { text-align: center; order: 2; width: 100%; }
@@ -60,6 +69,7 @@
             .foot-center { grid-column: 2; justify-content: flex-end; }
             .play-foot { width: 60px; height: 60px; font-size: 1.5rem; }
         }
+        
         .hide { display: none !important; }
         @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
         @keyframes spin { to { transform: rotate(360deg); } }
@@ -68,9 +78,9 @@
         @keyframes rotateBorder { 100% { filter: hue-rotate(360deg); } }
     </style>
 </head>
-<body>
+<body id="globalmix">
     <div id="bg-main"></div>
-    <audio id="radio" preload="none" autoplay style="display:none;"></audio>
+    <audio id="radio" preload="none" crossorigin="anonymous"></audio>
 
     <div class="wrapper">
         <div class="air-info">
@@ -80,9 +90,8 @@
         </div>
         <div class="center-stage">
             <img src="https://i.imgur.com/1iioOXn.png" class="top-logo">
-            <div class="big-cover" id="cover-trigger">
+            <div class="big-cover" id="cover-trigger" style="background-image: url('https://i.postimg.cc/HLxm6PxN/antiab.png');">
                 <div class="loader-wrap" id="loader"><div class="arc arc-blue"></div><div class="arc arc-green"></div></div>
-                <img src="https://i.imgur.com/1iioOXn.png" id="cover-img">
                 <button class="play-main" id="btn-main"><i class="fas fa-play"></i></button>
             </div>
         </div>
@@ -103,25 +112,23 @@
             <img src="https://i.imgur.com/1iioOXn.png" class="foot-logo-img">
             <div class="foot-text-box">
                 <div class="foot-top-line"><div class="label-pill"><div class="pill-dot"></div>A TOCAR:</div></div>
-                <div class="scroll-container"><span class="scroll-text" id="track-name">CONECTANDO...</span></div>
+                <div class="scroll-container"><span class="scroll-text" id="track-name">GLOBALMIX - CONECTANDO...</span></div>
             </div>
         </div>
         <div class="foot-center"><button class="play-foot" id="btn-foot"><i class="fas fa-play"></i></button></div>
         <div class="foot-right">
-            <div class="vol-wrap"><i class="fas fa-volume-up vol-icon"></i><input type="range" class="vol-slider" min="0" max="1" step="0.01" value="0.8" id="vol-control"></div>
+            <div class="vol-wrap"><i class="fas fa-volume-up vol-icon"></i><input type="range" class="vol-slider" min="0" max="1" step="0.01" value="1" id="vol-control"></div>
         </div>
     </div>
 
     <script>
-        (function() {
-            const _0x_stream = atob("aHR0cHM6Ly9zMi5zdG14cC5uZXQ6NzIyMC87"); 
-            const _0x_stats = atob("aHR0cHM6Ly9zMi5zdG14cC5uZXQ6NzIyMC83Lmh0bWw=");
+        (function($) {
+            const _0x_srv = atob("aHR0cHM6Ly9zMi5zdG14cC5uZXQ6NzIyMA=="); 
 
             const audio = document.getElementById('radio');
             const btnM = document.getElementById('btn-main'), btnF = document.getElementById('btn-foot');
             const loader = document.getElementById('loader'), trackTitle = document.getElementById('track-name');
-
-            audio.src = _0x_stream;
+            const coverDiv = document.getElementById('cover-trigger'), bgDiv = document.getElementById('bg-main');
 
             function updateUI(playing, loading) {
                 if (loading) { loader.style.display = 'block'; btnM.classList.add('hide'); } 
@@ -134,56 +141,73 @@
 
             const toggle = () => {
                 if (audio.paused) { 
+                    audio.src = _0x_srv + "/;stream.mp3"; 
                     audio.load();
                     audio.play().catch(()=>{}); 
                     updateUI(false, true); 
                 } else { 
                     audio.pause(); 
+                    audio.src = "";
                     updateUI(false, false); 
                 }
             };
 
-            document.getElementById('cover-trigger').onclick = toggle;
+            coverDiv.onclick = toggle;
             btnF.onclick = toggle;
-            
             audio.onplaying = () => updateUI(true, false);
             audio.onwaiting = () => updateUI(false, true);
-            audio.oncanplay = () => { if(!audio.paused) updateUI(true, false); };
             document.getElementById('vol-control').oninput = (e) => audio.volume = e.target.value;
 
-            async function fetchMetadata() {
-                const uniqueUrl = _0x_stats + '?nc=' + Date.now();
-                const proxyA = `https://api.codetabs.com/v1/proxy/?quest=${encodeURIComponent(uniqueUrl)}`;
-                const proxyB = `https://api.allorigins.win/get?url=${encodeURIComponent(uniqueUrl)}`;
-                try {
-                    const response = await Promise.any([
-                        fetch(proxyA).then(r => r.text().then(t => ({contents: t}))),
-                        fetch(proxyB).then(r => r.json())
-                    ]);
-                    let raw = response.contents || "";
-                    let clean = raw.replace(/<[^>]*>?/gm, '').trim();
-                    if (clean.includes(',')) {
-                        let parts = clean.split(',');
-                        document.getElementById('listeners').innerText = parts[0].trim();
-                        let song = (parts.length >= 7) ? parts[6].trim().toUpperCase() : "";
-                        
-                        if (song.length > 2 && trackTitle.innerText !== song) {
+            function updateData() {
+                $.ajax({
+                    url: _0x_srv + "/stats?sid=1&json=1&callback=?",
+                    dataType: "jsonp",
+                    success: function(res) {
+                        if (res.songtitle && $("#globalmix").attr("data-tag") !== res.songtitle) {
+                            $("#globalmix").attr("data-tag", res.songtitle);
+                            
+                            let song = res.songtitle.toUpperCase();
                             trackTitle.innerText = song;
-                            let songParts = song.split(" - ");
-                            document.getElementById('art-main').innerText = songParts[0] || "GLOBALMIX";
-                            document.getElementById('song-main').innerText = songParts[1] || "ONLINE";
+
+                            let parts = song.split("-");
+                            let artist = parts[0] ? parts[0].trim() : "GLOBALMIX";
+                            let title = parts[1] ? parts[1].trim() : "RÁDIO";
+                            
+                            document.getElementById('art-main').innerText = artist;
+                            document.getElementById('song-main').innerText = title;
+                            document.getElementById('listeners').innerText = res.currentlisteners;
+
+                            artistImage(artist, title);
                         }
                     }
-                } catch(e) {}
+                });
             }
 
-            window.addEventListener('load', () => {
-                fetchMetadata();
-                setInterval(fetchMetadata, 3000);
-				
-                audio.play().catch(()=>{});
+            function artistImage(a, t) {
+                const defaultCover = "https://i.postimg.cc/HLxm6PxN/antiab.png";
+                $.ajax({
+                    url: "https://itunes.apple.com/search?term=" + encodeURI(a + " " + t) + "&media=music&limit=1&callback=?",
+                    dataType: "jsonp",
+                    success: function(d) {
+                        if (d.results && d.results.length > 0) {
+                            let coverUrl = d.results[0].artworkUrl100.replace("100x100", "600x600");
+                            $(coverDiv).css("background-image", "url(" + coverUrl + ")");
+
+                            $(bgDiv).css("background-image", "linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(" + coverUrl + ")");
+                        } else {
+                            $(coverDiv).css("background-image", "url(" + defaultCover + ")");
+                        }
+                    }
+                });
+            }
+
+            $(document).ready(function() {
+                updateData();
+                setInterval(updateData, 10000);
+                setTimeout(() => { toggle(); }, 1200);
             });
-        })();
+
+        })(jQuery);
     </script>
 </body>
 </html>
