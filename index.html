@@ -202,14 +202,11 @@
 <body>
 
     <div id="bg-main"></div>
-    <audio id="radio" src="https://s2.stmxp.net:7220/;" preload="auto" autoplay></audio>
+    <audio id="radio" preload="auto" autoplay></audio>
 
     <div class="wrapper">
         <div class="air-info">
-            <div class="live-indicator">
-                <div class="live-dot"></div>
-                <div class="live-text">Live</div>
-            </div>
+            <div class="live-indicator"><div class="live-dot"></div><div class="live-text">Live</div></div>
             <h1 class="artist-title" id="art-main">GLOBALMIX</h1>
             <p class="song-title" id="song-main">CONECTANDO...</p>
         </div>
@@ -217,10 +214,7 @@
         <div class="center-stage">
             <img src="https://i.imgur.com/1iioOXn.png" class="top-logo">
             <div class="big-cover" id="cover-trigger">
-                <div class="loader-wrap" id="loader">
-                    <div class="arc arc-blue"></div>
-                    <div class="arc arc-green"></div>
-                </div>
+                <div class="loader-wrap" id="loader"><div class="arc arc-blue"></div><div class="arc arc-green"></div></div>
                 <img src="https://i.imgur.com/1iioOXn.png" id="cover-img">
                 <button class="play-main" id="btn-main"><i class="fas fa-play"></i></button>
             </div>
@@ -233,7 +227,7 @@
             </div>
             <div class="listeners-wrap">
                 <div class="listeners-label">Ouvintes Online</div>
-                <span class="listeners-count" id="listeners">0</span>
+                <span class="listeners-count" id="listeners"> </span>
             </div>
         </div>
     </div>
@@ -242,22 +236,11 @@
         <div class="foot-left">
             <img src="https://i.imgur.com/1iioOXn.png" class="foot-logo-img">
             <div class="foot-text-box">
-                <div class="foot-top-line">
-                    <div class="label-pill">
-                        <div class="pill-dot"></div>
-                        A TOCAR:
-                    </div>
-                </div>
-                <div class="scroll-container">
-                    <span class="scroll-text" id="track-name">SINTONIZANDO TRANSMISSÃO PREMIUM...</span>
-                </div>
+                <div class="foot-top-line"><div class="label-pill"><div class="pill-dot"></div>A TOCAR:</div></div>
+                <div class="scroll-container"><span class="scroll-text" id="track-name">CONECTANDO...</span></div>
             </div>
         </div>
-
-        <div class="foot-center">
-            <button class="play-foot" id="btn-foot"><i class="fas fa-play"></i></button>
-        </div>
-
+        <div class="foot-center"><button class="play-foot" id="btn-foot"><i class="fas fa-play"></i></button></div>
         <div class="foot-right">
             <div class="vol-wrap">
                 <i class="fas fa-volume-up vol-icon"></i>
@@ -267,79 +250,61 @@
     </div>
 
     <script>
-        const audio = document.getElementById('radio');
-        const btnM = document.getElementById('btn-main');
-        const btnF = document.getElementById('btn-foot');
-        const coverTrigger = document.getElementById('cover-trigger');
-        const loader = document.getElementById('loader');
-        const trackTitle = document.getElementById('track-name');
-        
-        const statsUrl = "https://s2.stmxp.net:7220";
+        (function() {
+            const _0x_stream = atob("aHR0cHM6Ly9zMi5zdG14cC5uZXQ6NzIyMC87"); 
+            const _0x_stats = atob("aHR0cHM6Ly9zMi5zdG14cC5uZXQ6NzIyMA==");
+            document.addEventListener("contextmenu", e => e.preventDefault());
+            document.onkeydown = e => {
+                if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) || (e.ctrlKey && e.keyCode == 85)) return false;
+            };
+            const audio = document.getElementById('radio');
+            const btnM = document.getElementById('btn-main'), btnF = document.getElementById('btn-foot');
+            const coverTrigger = document.getElementById('cover-trigger'), loader = document.getElementById('loader');
+            const trackTitle = document.getElementById('track-name');
 
-        function updateUI(playing, loading) {
-            if (loading) {
-                loader.style.display = 'block';
-                btnM.classList.add('hide');
-            } else {
-                loader.style.display = 'none';
-                if (playing) {
-                    btnM.classList.add('hide'); 
-                    btnF.innerHTML = '<i class="fas fa-pause"></i>';
-                } else {
-                    btnM.classList.remove('hide'); 
-                    btnF.innerHTML = '<i class="fas fa-play"></i>';
+            audio.src = _0x_stream;
+
+            function updateUI(playing, loading) {
+                if (loading) { loader.style.display = 'block'; btnM.classList.add('hide'); } 
+                else {
+                    loader.style.display = 'none';
+                    if (playing) { btnM.classList.add('hide'); btnF.innerHTML = '<i class="fas fa-pause"></i>'; } 
+                    else { btnM.classList.remove('hide'); btnF.innerHTML = '<i class="fas fa-play"></i>'; }
                 }
             }
-        }
 
-        function toggleRadio() {
-            if (audio.paused) { 
-                 audio.play().catch(()=>{}); 
-                 updateUI(false, true); 
-             } else { 
-                 audio.pause(); 
-                 updateUI(false, false); 
-             }
-        }
+            function toggleRadio() {
+                if (audio.paused) { audio.play().catch(()=>{}); updateUI(false, true); } 
+                else { audio.pause(); updateUI(false, false); }
+            }
 
-        coverTrigger.onclick = toggleRadio;
-        btnF.onclick = toggleRadio;
+            coverTrigger.onclick = toggleRadio;
+            btnF.onclick = toggleRadio;
+            audio.onplaying = () => updateUI(true, false);
+            audio.onwaiting = () => updateUI(false, true);
+            document.getElementById('vol-control').oninput = e => audio.volume = e.target.value;
 
-        audio.onplaying = () => updateUI(true, false);
-        audio.onwaiting = () => updateUI(false, true);
-        document.getElementById('vol-control').oninput = (e) => audio.volume = e.target.value;
-
-        function fetchMetadata() {
-            $.getJSON(statsUrl + "/stats?sid=1&json=1&callback=?", function(r){
-                if(r) {
-                    const song = r.songtitle ? r.songtitle.toUpperCase() : "RADIO GLOBALMIX";
-                    const listeners = r.currentlisteners || "0";
-                    document.getElementById('listeners').innerText = listeners;
-                    
-                    if (trackTitle.innerText !== song) {
-                        trackTitle.innerText = song;
-                        const parts = song.split(" - ");
-                        document.getElementById('art-main').innerText = parts[0] || "GLOBALMIX";
-                        document.getElementById('song-main').innerText = parts[1] || "ONLINE";
+            function fetchMetadata() {
+                $.getJSON(_0x_stats + "/stats?sid=1&json=1&callback=?", function(r){
+                    if(r) {
+                        $('#listeners').text(r.currentlisteners || "0");
+                        const song = r.songtitle ? r.songtitle.toUpperCase() : "RADIO GLOBALMIX";
+                        if (trackTitle.innerText !== song) {
+                            trackTitle.innerText = song;
+                            const parts = song.split(" - ");
+                            $('#art-main').text(parts[0] || " ");
+                            $('#song-main').text(parts[1] || " ");
+                        }
                     }
-                }
+                });
+            }
+
+            window.addEventListener('load', () => {
+                fetchMetadata();
+                setInterval(fetchMetadata, 8000);
+                audio.play().then(() => updateUI(true, false)).catch(() => updateUI(false, false));
             });
-        }
-
-
-        window.addEventListener('load', () => {
-            fetchMetadata();
-
-            audio.play().then(() => {
-                updateUI(true, false);
-            }).catch(() => {
-                console.log("Autoplay bloqueado pelo navegador. Interação necessária.");
-                updateUI(false, false);
-            });
-        });
-
-        setInterval(fetchMetadata, 8000);
-        document.addEventListener("contextmenu", e => e.preventDefault());
+        })();
     </script>
 </body>
 </html>
