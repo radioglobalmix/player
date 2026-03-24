@@ -1,4 +1,259 @@
-<script>
+
+<!DOCTYPE html>
+<html lang=pt-PT>
+<head>
+<title>Radio Globalmix</title>
+<meta name="description" content="Radio Globalmix" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv=X-UA-Compatible content="IE=Edge"/>
+<meta property="og:title" content="Radio Globalmix Player" />
+<meta property="og:description" content="Radio Globalmix" />
+<link rel="icon" type="image/png" href="https://imgur.com/1mzO56o.png" sizes="48x48" />
+<link rel="icon" type="image/png" href="https://imgur.com/1mzO56o.png" sizes="96x96" />
+<link rel="icon" type="image/png" href="https://imgur.com/1mzO56o.png" sizes="144x144" />
+<link rel="icon" type="image/png" href="https://imgur.com/1mzO56o.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://imgur.com/1mzO56o.png" sizes="180x180"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root { --exa-blue: #0084ff; --exa-green: #25d366; --dark-card: rgba(35, 37, 42, 0.8); }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body, html {
+            width: 100%; height: 100%;
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden; color: white;
+        }
+
+        #bg-main {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
+                        url('https://i.postimg.cc/FHhvRJYJ/2.jpg') no-repeat center center;
+            background-size: cover;
+            display: block !important;
+        }
+
+        /* Estrutura Principal - Desktop Primeiro */
+        .wrapper {
+            display: grid; 
+            grid-template-columns: 1fr 1.5fr 1fr; 
+            height: calc(100vh - 100px); 
+            align-items: center; 
+            padding: 0 60px;
+            gap: 20px;
+        }
+
+        .air-info { text-align: left; }
+        .artist-title { font-size: 2.2rem; font-weight: 800; font-style: italic; text-transform: uppercase; line-height: 1.1; margin-bottom: 2px; }
+        .song-title { font-size: 1.3rem; opacity: 0.8; text-transform: uppercase; }
+
+        .center-stage { display: flex; flex-direction: column; align-items: center; gap: 25px; }
+
+        .top-logo { 
+            height: 100px; 
+            width: auto; 
+            background: transparent !important; 
+            margin-top: -30px; 
+        }
+        
+        .big-cover {
+            width: 360px; 
+            height: 360px; 
+            background: transparent !important;
+            border-radius: 20px;
+            position: relative; 
+            border: 12px solid transparent;
+            border-image: conic-gradient(red, yellow, lime, aqua, blue, magenta, red) 1;
+            animation: rotateBorder 4s linear infinite;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.7);
+            display: flex; justify-content: center; align-items: center;
+            overflow: hidden;
+        }
+        .big-cover img { width: 100%; height: 100%; object-fit: contain; }
+
+        .loader-wrap { position: absolute; width: 170px; height: 170px; display: none; z-index: 20; }
+        .arc { position: absolute; border: 8px solid transparent; border-radius: 50%; animation: spin 1s linear infinite; }
+        .arc-blue { width: 100%; height: 100%; border-top-color: var(--exa-blue); }
+        .arc-green { width: 80%; height: 80%; top: 10%; left: 10%; border-bottom-color: var(--exa-green); animation-direction: reverse; }
+
+        .play-main { 
+            position: absolute; 
+            background: none; 
+            border: none; 
+            cursor: pointer; 
+            z-index: 10; 
+            font-size: 6rem; 
+            color: var(--exa-blue); 
+            text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+
+        .social-card { background: var(--dark-card); padding: 40px 25px; border-radius: 15px; width: 320px; text-align: center; justify-self: end; backdrop-filter: blur(10px); }
+        .social-icons { display: flex; justify-content: center; gap: 35px; margin-bottom: 25px; }
+        .fa-facebook-square { color: #1877F2; } 
+        .fa-globe { color: #25D366; } 
+        .social-icons i { font-size: 3rem; transition: 0.3s; }
+        .social-icons i:hover { transform: scale(1.1); filter: brightness(1.2); }
+
+        .listeners-wrap {
+            margin-top: 15px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 20px;
+        }
+        .listeners-label { font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px; opacity: 0.9; }
+        .listeners-count {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff);
+            background-size: 400% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: rainbow 8s linear infinite;
+            display: block;
+        }
+
+        /* Rodapé */
+        .footer-bar {
+            position: fixed; bottom: 0; width: 100%; height: 100px;
+            background: #ffffff; color: #333; display: grid;
+            grid-template-columns: 1.3fr 0.4fr 1.3fr;
+            align-items: center; padding: 0;
+            z-index: 100;
+        }
+
+        .foot-left { display: flex; align-items: flex-start; gap: 15px; height: 100%; overflow: hidden; }
+        .foot-logo-img { height: 100px; width: auto; background: transparent !important; }
+        .foot-text-box { display: flex; flex-direction: column; width: 100%; margin-top: 5px; overflow: hidden; }
+        .label-pill {
+            background: #ff0000; color: #fff; padding: 3px 12px; border-radius: 20px;
+            display: inline-flex; align-items: center; gap: 8px; font-weight: 800; font-size: 0.7rem; text-transform: uppercase; width: fit-content;
+        }
+        .pill-dot { width: 7px; height: 7px; background: #fff; border-radius: 50%; animation: blink 1s infinite; }
+        .scroll-container { width: 100%; white-space: nowrap; overflow: hidden; margin-top: 5px; }
+        .scroll-text { display: inline-block; font-weight: 800; font-size: 1.35rem; text-transform: uppercase; padding-left: 100%; animation: scroll 20s linear infinite; color: #111; }
+
+        .foot-center { display: flex; justify-content: center; }
+        .play-foot { width: 75px; height: 75px; border-radius: 50%; border: 4px solid var(--exa-green); background: none; cursor: pointer; display: flex; justify-content: center; align-items: center; font-size: 2rem; color: var(--exa-blue); }
+
+        .foot-right { display: flex; justify-content: center; padding-right: 15%; }
+        .vol-wrap { position: relative; width: 140px; display: flex; align-items: center; justify-content: center; }
+        .vol-icon { font-size: 2.3rem; color: var(--exa-blue); }
+        .vol-slider { position: absolute; opacity: 0; width: 100%; cursor: pointer; accent-color: var(--exa-blue); transition: 0.3s; }
+        .vol-wrap:hover .vol-icon { opacity: 0; }
+        .vol-wrap:hover .vol-slider { opacity: 1; }
+
+        /* --- RESPONSIVIDADE (MOBILE E TABLETS) --- */
+        @media (max-width: 1024px) {
+            .wrapper { grid-template-columns: 1fr 1fr; padding: 0 30px; }
+            .social-card { width: 260px; }
+        }
+
+        @media (max-width: 768px) {
+            body { overflow-y: auto; }
+            .wrapper { 
+                grid-template-columns: 1fr; 
+                height: auto; 
+                padding: 20px; 
+                padding-bottom: 120px; 
+                gap: 40px;
+                display: flex;
+                flex-direction: column;
+            }
+            .air-info { text-align: center; order: 2; }
+            .center-stage { order: 1; margin-top: 20px; }
+            .social-card { order: 3; width: 100%; max-width: 350px; justify-self: center; margin-bottom: 20px; }
+            
+            .big-cover { width: 280px; height: 280px; border-width: 8px; }
+            .top-logo { height: 70px; margin-top: 0; }
+            .play-main { font-size: 4.5rem; }
+            .artist-title { font-size: 1.6rem; }
+            .song-title { font-size: 1rem; }
+
+            .footer-bar {
+                grid-template-columns: 1fr 80px;
+                height: 90px;
+            }
+            .foot-right { display: none; } /* Ocultar volume no mobile */
+            .foot-logo-img { height: 80px; }
+            .foot-center { padding-right: 15px; }
+            .play-foot { width: 60px; height: 60px; font-size: 1.5rem; }
+            .scroll-text { font-size: 1.1rem; }
+        }
+
+        /* Animações */
+        .hide { display: none !important; }
+        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        @keyframes rainbow { to { background-position: 400% center; } }
+        @keyframes rotateBorder { 100% { filter: hue-rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+    <div id="bg-main"></div>
+    <audio id="radio" src="https://s2.stmxp.net:7220/;" preload="auto"></audio>
+
+    <div class="wrapper">
+        <div class="air-info">
+            <h1 class="artist-title" id="art-main">GLOBALMIX</h1>
+            <p class="song-title" id="song-main">CONECTANDO...</p>
+        </div>
+
+        <div class="center-stage">
+            <img src="https://i.imgur.com/1iioOXn.png" class="top-logo">
+            <div class="big-cover">
+                <div class="loader-wrap" id="loader">
+                    <div class="arc arc-blue"></div>
+                    <div class="arc arc-green"></div>
+                </div>
+                <img src="https://i.imgur.com/1iioOXn.png" id="cover-img">
+                <button class="play-main" id="btn-main"><i class="fas fa-play"></i></button>
+            </div>
+        </div>
+
+        <div class="social-card">
+            <div class="social-icons">
+                <a href="https://www.facebook.com/groups/radioglobamix.team" target="_blank"><i class="fab fa-facebook-square"></i></a>
+                <a href="https://radioglobalmix.rf.gd" target="_blank"><i class="fas fa-globe"></i></a>
+            </div>
+            <div class="listeners-wrap">
+                <div class="listeners-label">Ouvintes Online</div>
+                <span class="listeners-count" id="listeners">0</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bar">
+        <div class="foot-left">
+            <img src="https://i.imgur.com/1iioOXn.png" class="foot-logo-img">
+            <div class="foot-text-box">
+                <div class="foot-top-line">
+                    <div class="label-pill">
+                        <div class="pill-dot"></div>
+                        A TOCAR:
+                    </div>
+                </div>
+                <div class="scroll-container">
+                    <span class="scroll-text" id="track-name">SINTONIZANDO TRANSMISSÃO PREMIUM...</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="foot-center">
+            <button class="play-foot" id="btn-foot"><i class="fas fa-play"></i></button>
+        </div>
+
+        <div class="foot-right">
+            <div class="vol-wrap">
+                <i class="fas fa-volume-up vol-icon"></i>
+                <input type="range" class="vol-slider" min="0" max="1" step="0.01" value="0.8" id="vol-control">
+            </div>
+        </div>
+    </div>
+
+    <script>
         const audio = document.getElementById('radio');
         const btnM = document.getElementById('btn-main');
         const btnF = document.getElementById('btn-foot');
