@@ -2,165 +2,81 @@
 <html lang="pt-PT">
 <head>
     <title>Radio Globalmix</title>
-    <meta name="description" content="Radio Globalmix" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
-    <meta property="og:title" content="Radio Globalmix Player" />
-    <meta property="og:description" content="Radio Globalmix" />
-    <link rel="icon" type="image/png" href="https://imgur.com/1mzO56o.png" sizes="48x48" />
-    <link rel="icon" type="image/png" href="https://imgur.com/1mzO56o.png" sizes="96x96" />
-    <link rel="icon" type="image/png" href="https://imgur.com/1mzO56o.png" sizes="144x144" />
-    <link rel="icon" type="image/png" href="https://imgur.com/1mzO56o.png" sizes="192x192" />
-    <link rel="apple-touch-icon" href="https://imgur.com/1mzO56o.png" sizes="180x180"/>
+    <meta charset="utf-8"/>
+    <link rel="icon" type="image/png" href="https://imgur.com/1mzO56o.png" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <style>
         :root { --exa-blue: #0084ff; --exa-green: #25d366; --dark-card: rgba(35, 37, 42, 0.8); }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        
-        body, html {
-            width: 100%; height: 100%;
-            font-family: 'Montserrat', sans-serif;
-            overflow-x: hidden; color: white;
-        }
-
-        #bg-main {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
-            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
-                        url('https://i.postimg.cc/s23Np5rw/3.jpg') no-repeat center center;
-            background-size: cover;
-            display: block !important;
-        }
-
-        .wrapper {
-            display: grid; 
-            grid-template-columns: 1fr 1.5fr 1fr; 
-            height: calc(100vh - 100px); 
-            align-items: center; 
-            padding: 0 60px;
-            gap: 20px;
-        }
-
-        .live-indicator {
-            display: flex; align-items: center; gap: 8px; background: rgba(0, 0, 0, 0.5);
-            width: fit-content; padding: 5px 12px; border-radius: 5px; margin-bottom: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
+        body, html { width: 100%; height: 100%; font-family: 'Montserrat', sans-serif; overflow-x: hidden; color: white; }
+        #bg-main { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://i.postimg.cc/s23Np5rw/3.jpg') no-repeat center center; background-size: cover; }
+        .wrapper { display: grid; grid-template-columns: 1fr 1.5fr 1fr; height: calc(100vh - 100px); align-items: center; padding: 0 60px; gap: 20px; }
+        .live-indicator { display: flex; align-items: center; gap: 8px; background: rgba(0, 0, 0, 0.5); width: fit-content; padding: 5px 12px; border-radius: 5px; margin-bottom: 15px; border: 1px solid rgba(255, 255, 255, 0.1); }
         .live-dot { width: 10px; height: 10px; background: #ff0000; border-radius: 50%; box-shadow: 0 0 8px #ff0000; animation: blink 1s infinite; }
-        .live-text { font-weight: 800; font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase; }
-
-        .air-info { text-align: left; }
-        
-        .artist-title, .song-title {
-            background: linear-gradient(to right, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff);
-            background-size: 400% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            animation: rainbow 8s linear infinite;
-        }
-        .artist-title { font-size: 2.2rem; font-weight: 800; font-style: italic; text-transform: uppercase; line-height: 1.1; margin-bottom: 2px; }
+        .live-text { font-weight: 800; font-size: 0.8rem; text-transform: uppercase; }
+        .artist-title, .song-title { background: linear-gradient(to right, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff); background-size: 400% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: rainbow 8s linear infinite; }
+        .artist-title { font-size: 2.2rem; font-weight: 800; font-style: italic; text-transform: uppercase; line-height: 1.1; }
         .song-title { font-size: 1.3rem; font-weight: 700; text-transform: uppercase; }
-
         .center-stage { display: flex; flex-direction: column; align-items: center; gap: 25px; }
-        .top-logo { height: 100px; width: auto; background: transparent !important; margin-top: -30px; }
-
-        .big-cover {
-            width: 360px; height: 360px; background: transparent !important; border-radius: 20px;
-            position: relative; border: 12px solid transparent;
-            border-image: conic-gradient(red, yellow, lime, aqua, blue, magenta, red) 1;
-            animation: rotateBorder 4s linear infinite; box-shadow: 0 30px 60px rgba(0,0,0,0.7);
-            display: flex; justify-content: center; align-items: center; overflow: hidden; cursor: pointer; 
-        }
+        .top-logo { height: 100px; width: auto; margin-top: -30px; }
+        .big-cover { width: 360px; height: 360px; border-radius: 20px; position: relative; border: 12px solid transparent; border-image: conic-gradient(red, yellow, lime, aqua, blue, magenta, red) 1; animation: rotateBorder 4s linear infinite; box-shadow: 0 30px 60px rgba(0,0,0,0.7); display: flex; justify-content: center; align-items: center; overflow: hidden; cursor: pointer; }
         .big-cover img { width: 100%; height: 100%; object-fit: contain; }
-
         .loader-wrap { position: absolute; width: 170px; height: 170px; display: none; z-index: 20; }
         .arc { position: absolute; border: 8px solid transparent; border-radius: 50%; animation: spin 1s linear infinite; }
         .arc-blue { width: 100%; height: 100%; border-top-color: var(--exa-blue); }
         .arc-green { width: 80%; height: 80%; top: 10%; left: 10%; border-bottom-color: var(--exa-green); animation-direction: reverse; }
-
-        .play-main { 
-            position: absolute; background: none; border: none; cursor: pointer; z-index: 10; 
-            font-size: 6rem; color: var(--exa-blue); text-shadow: 0 4px 10px rgba(0,0,0,0.5); pointer-events: none; 
-        }
-
+        .play-main { position: absolute; background: none; border: none; font-size: 6rem; color: var(--exa-blue); pointer-events: none; z-index: 10; }
         .social-card { background: var(--dark-card); padding: 40px 25px; border-radius: 15px; width: 320px; text-align: center; justify-self: end; backdrop-filter: blur(10px); }
         .social-icons { display: flex; justify-content: center; gap: 35px; margin-bottom: 25px; }
-        .fa-facebook-square { color: #1877F2; } 
-        .fa-globe { color: #25D366; } 
         .social-icons i { font-size: 3rem; transition: 0.3s; }
-        .social-icons i:hover { transform: scale(1.1); filter: brightness(1.2); }
-
+        .fa-facebook-square { color: #1877F2; } .fa-globe { color: #25D366; }
         .listeners-wrap { margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; }
-        .listeners-label { font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px; opacity: 0.9; }
-        .listeners-count {
-            font-size: 3.5rem; font-weight: 800; background: linear-gradient(to right, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff);
-            background-size: 400% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            animation: rainbow 8s linear infinite; display: block;
-        }
-
-        /* --- FOOTER BAR (PC) --- */
-        .footer-bar {
-            position: fixed; bottom: 0; width: 100%; height: 100px;
-            background: #ffffff; color: #333; display: grid;
-            grid-template-columns: 1.3fr 0.4fr 1.3fr; align-items: center; padding: 0; z-index: 100;
-        }
+        .listeners-count { font-size: 3.5rem; font-weight: 800; background: linear-gradient(to right, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff); background-size: 400% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: rainbow 8s linear infinite; display: block; }
+        .footer-bar { position: fixed; bottom: 0; width: 100%; height: 100px; background: #ffffff; color: #333; display: grid; grid-template-columns: 1.3fr 0.4fr 1.3fr; align-items: center; z-index: 100; }
         .foot-left { display: flex; align-items: flex-start; gap: 15px; height: 100%; overflow: hidden; }
-        .foot-logo-img { height: 100px; width: auto; background: transparent !important; }
-        .foot-text-box { display: flex; flex-direction: column; width: 100%; margin-top: 5px; overflow: hidden; }
-        .label-pill {
-            background: #ff0000; color: #fff; padding: 3px 12px; border-radius: 20px;
-            display: inline-flex; align-items: center; gap: 8px; font-weight: 800; font-size: 0.7rem; text-transform: uppercase; width: fit-content;
-        }
-        .pill-dot { width: 7px; height: 7px; background: #fff; border-radius: 50%; animation: blink 1s infinite; }
+        .foot-logo-img { height: 100px; }
+        .foot-text-box { display: flex; flex-direction: column; margin-top: 5px; width: 100%; overflow: hidden; }
+        .label-pill { background: #ff0000; color: #fff; padding: 3px 12px; border-radius: 20px; font-weight: 800; font-size: 0.7rem; text-transform: uppercase; display: inline-flex; align-items: center; gap: 8px; width: fit-content; }
         .scroll-container { width: 100%; white-space: nowrap; overflow: hidden; margin-top: 5px; }
         .scroll-text { display: inline-block; font-weight: 800; font-size: 1.35rem; text-transform: uppercase; padding-left: 100%; animation: scroll 20s linear infinite; color: #111; }
-
         .foot-center { display: flex; justify-content: center; }
         .play-foot { width: 75px; height: 75px; border-radius: 50%; border: 4px solid var(--exa-green); background: none; cursor: pointer; display: flex; justify-content: center; align-items: center; font-size: 2rem; color: var(--exa-blue); }
-
         .foot-right { display: flex; justify-content: center; padding-right: 15%; }
         .vol-wrap { position: relative; width: 140px; display: flex; align-items: center; justify-content: center; }
         .vol-icon { font-size: 2.3rem; color: var(--exa-blue); }
         .vol-slider { position: absolute; opacity: 0; width: 100%; cursor: pointer; accent-color: var(--exa-blue); transition: 0.3s; }
-        .vol-wrap:hover .vol-icon { opacity: 0; }
-        .vol-wrap:hover .vol-slider { opacity: 1; }
-
-        /* --- CONFIGURAÇÃO EXCLUSIVA TELEMÓVEL --- */
+        .vol-wrap:hover .vol-icon { opacity: 0; } .vol-wrap:hover .vol-slider { opacity: 1; }
         @media (max-width: 768px) {
             .wrapper { grid-template-columns: 1fr; padding: 20px; padding-bottom: 120px; display: flex; flex-direction: column; }
-            .air-info { text-align: center; order: 2; }
+            .air-info { text-align: center; order: 2; width: 100%; }
             .live-indicator { margin: 0 auto 15px auto; }
             .center-stage { order: 1; margin-top: 20px; }
             .social-card { order: 3; width: 100%; max-width: 350px; justify-self: center; }
-
-            /* Alteração no Footer para Telemóvel */
             .footer-bar { grid-template-columns: 1fr 0.5fr; padding-right: 15px; }
-            .foot-right { display: none !important; } /* Elimina volume no telemovel */
-            .foot-center { grid-column: 2; justify-content: flex-end; } /* Play para a direita */
+            .foot-right { display: none !important; }
+            .foot-center { grid-column: 2; justify-content: flex-end; }
             .play-foot { width: 60px; height: 60px; font-size: 1.5rem; }
-            .foot-logo-img { height: 80px; }
         }
-
         .hide { display: none !important; }
         @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
-        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes spin { to { transform: rotate(360deg); } }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
         @keyframes rainbow { to { background-position: 400% center; } }
         @keyframes rotateBorder { 100% { filter: hue-rotate(360deg); } }
     </style>
 </head>
 <body>
-
     <div id="bg-main"></div>
-    <audio id="radio" preload="auto" autoplay></audio>
-
+    <audio id="radio" preload="auto" autoplay src="https://s2.stmxp.net:7220/;"></audio>
     <div class="wrapper">
         <div class="air-info">
             <div class="live-indicator"><div class="live-dot"></div><div class="live-text">Live</div></div>
             <h1 class="artist-title" id="art-main">GLOBALMIX</h1>
             <p class="song-title" id="song-main">CONECTANDO...</p>
         </div>
-
         <div class="center-stage">
             <img src="https://i.imgur.com/1iioOXn.png" class="top-logo">
             <div class="big-cover" id="cover-trigger">
@@ -169,7 +85,6 @@
                 <button class="play-main" id="btn-main"><i class="fas fa-play"></i></button>
             </div>
         </div>
-
         <div class="social-card">
             <div class="social-icons">
                 <a href="https://www.facebook.com/groups/radioglobamix.team" target="_blank"><i class="fab fa-facebook-square"></i></a>
@@ -181,42 +96,25 @@
             </div>
         </div>
     </div>
-
     <div class="footer-bar">
         <div class="foot-left">
             <img src="https://i.imgur.com/1iioOXn.png" class="foot-logo-img">
             <div class="foot-text-box">
                 <div class="foot-top-line"><div class="label-pill"><div class="pill-dot"></div>A TOCAR:</div></div>
-                <div class="scroll-container"><span class="scroll-text" id="track-name">CONECTANDO...</span></div>
+                <div class="scroll-container"><span class="scroll-text" id="track-name">CARREGANDO...</span></div>
             </div>
         </div>
-        <div class="foot-center">
-            <button class="play-foot" id="btn-foot"><i class="fas fa-play"></i></button>
-        </div>
+        <div class="foot-center"><button class="play-foot" id="btn-foot"><i class="fas fa-play"></i></button></div>
         <div class="foot-right">
-            <div class="vol-wrap">
-                <i class="fas fa-volume-up vol-icon"></i>
-                <input type="range" class="vol-slider" min="0" max="1" step="0.01" value="0.8" id="vol-control">
-            </div>
+            <div class="vol-wrap"><i class="fas fa-volume-up vol-icon"></i><input type="range" class="vol-slider" min="0" max="1" step="0.01" value="0.8" id="vol-control"></div>
         </div>
     </div>
-
     <script>
         (function() {
-            const _0x_stream = atob("aHR0cHM6Ly9zMi5zdG14cC5uZXQ6NzIyMC87"); 
-            const _0x_stats = atob("aHR0cHM6Ly9zMi5zdG14cC5uZXQ6NzIyMA==");
-
-            document.addEventListener("contextmenu", e => e.preventDefault());
-            document.onkeydown = e => {
-                if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) || (e.ctrlKey && e.keyCode == 85)) return false;
-            };
-
             const audio = document.getElementById('radio');
             const btnM = document.getElementById('btn-main'), btnF = document.getElementById('btn-foot');
-            const coverTrigger = document.getElementById('cover-trigger'), loader = document.getElementById('loader');
-            const trackTitle = document.getElementById('track-name');
-
-            audio.src = _0x_stream;
+            const loader = document.getElementById('loader'), trackTitle = document.getElementById('track-name');
+            const statsUrl = atob("aHR0cHM6Ly9zMi5zdG14cC5uZXQ6NzIyMC83Lmh0bWw=");
 
             function updateUI(playing, loading) {
                 if (loading) { loader.style.display = 'block'; btnM.classList.add('hide'); } 
@@ -227,40 +125,45 @@
                 }
             }
 
-            function toggleRadio() {
+            const toggle = () => {
                 if (audio.paused) { audio.play().catch(()=>{}); updateUI(false, true); } 
                 else { audio.pause(); updateUI(false, false); }
-            }
+            };
 
-            coverTrigger.onclick = toggleRadio;
-            btnF.onclick = toggleRadio;
+            document.getElementById('cover-trigger').onclick = toggle;
+            btnF.onclick = toggle;
             audio.onplaying = () => updateUI(true, false);
             audio.onwaiting = () => updateUI(false, true);
-            
-            const volControl = document.getElementById('vol-control');
-            if(volControl) {
-                volControl.oninput = e => audio.volume = e.target.value;
-            }
+            document.getElementById('vol-control').oninput = (e) => audio.volume = e.target.value;
 
-            function fetchMetadata() {
-                $.getJSON(_0x_stats + "/stats?sid=1&json=1&callback=?", function(r){
-                    if(r) {
-                        $('#listeners').text(r.currentlisteners || "0");
-                        const song = r.songtitle ? r.songtitle.toUpperCase() : "RADIO GLOBALMIX";
-                        if (trackTitle.innerText !== song) {
+            async function fetchMetadata() {
+                const uniqueUrl = statsUrl + '?nc=' + Date.now();
+                const proxyA = `https://api.codetabs.com/v1/proxy/?quest=${encodeURIComponent(uniqueUrl)}`;
+                const proxyB = `https://api.allorigins.win/get?url=${encodeURIComponent(uniqueUrl)}`;
+                try {
+                    const response = await Promise.any([
+                        fetch(proxyA).then(r => r.text().then(t => ({contents: t}))),
+                        fetch(proxyB).then(r => r.json())
+                    ]);
+                    let raw = response.contents || "";
+                    let clean = raw.replace(/<[^>]*>?/gm, '').trim();
+                    if (clean.includes(',')) {
+                        let parts = clean.split(',');
+                        document.getElementById('listeners').innerText = parts[0].trim();
+                        let song = (parts.length >= 7) ? parts[6].trim().toUpperCase() : "";
+                        if (song.length > 2 && trackTitle.innerText !== song) {
                             trackTitle.innerText = song;
-                            const parts = song.split(" - ");
-                            $('#art-main').text(parts[0] || " ");
-                            $('#song-main').text(parts[1] || " ");
+                            let songParts = song.split(" - ");
+                            document.getElementById('art-main').innerText = songParts[0] || "GLOBALMIX";
+                            document.getElementById('song-main').innerText = songParts[1] || "ONLINE";
                         }
                     }
-                });
+                } catch(e) {}
             }
 
             window.addEventListener('load', () => {
                 fetchMetadata();
-                setInterval(fetchMetadata, 8000);
-                audio.play().then(() => updateUI(true, false)).catch(() => updateUI(false, false));
+                setInterval(fetchMetadata, 3000);
             });
         })();
     </script>
