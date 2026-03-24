@@ -13,36 +13,28 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body, html { width: 100%; height: 100%; font-family: 'Montserrat', sans-serif; overflow-x: hidden; color: white; }
         #bg-main { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://i.postimg.cc/s23Np5rw/3.jpg') no-repeat center center; background-size: cover; }
-        
         .wrapper { display: grid; grid-template-columns: 1fr 1.5fr 1fr; height: calc(100vh - 100px); align-items: center; padding: 0 60px; gap: 20px; }
         .live-indicator { display: flex; align-items: center; gap: 8px; background: rgba(0, 0, 0, 0.5); width: fit-content; padding: 5px 12px; border-radius: 5px; margin-bottom: 15px; border: 1px solid rgba(255, 255, 255, 0.1); }
         .live-dot { width: 10px; height: 10px; background: #ff0000; border-radius: 50%; box-shadow: 0 0 8px #ff0000; animation: blink 1s infinite; }
         .live-text { font-weight: 800; font-size: 0.8rem; text-transform: uppercase; }
-        
         .artist-title, .song-title { background: linear-gradient(to right, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff); background-size: 400% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: rainbow 8s linear infinite; }
         .artist-title { font-size: 2.2rem; font-weight: 800; font-style: italic; text-transform: uppercase; line-height: 1.1; }
         .song-title { font-size: 1.3rem; font-weight: 700; text-transform: uppercase; }
-        
         .center-stage { display: flex; flex-direction: column; align-items: center; gap: 25px; }
         .top-logo { height: 100px; width: auto; margin-top: -30px; }
         .big-cover { width: 360px; height: 360px; border-radius: 20px; position: relative; border: 12px solid transparent; border-image: conic-gradient(red, yellow, lime, aqua, blue, magenta, red) 1; animation: rotateBorder 4s linear infinite; box-shadow: 0 30px 60px rgba(0,0,0,0.7); display: flex; justify-content: center; align-items: center; overflow: hidden; cursor: pointer; }
         .big-cover img { width: 100%; height: 100%; object-fit: contain; }
-        
         .loader-wrap { position: absolute; width: 170px; height: 170px; display: none; z-index: 20; }
         .arc { position: absolute; border: 8px solid transparent; border-radius: 50%; animation: spin 1s linear infinite; }
         .arc-blue { width: 100%; height: 100%; border-top-color: var(--exa-blue); }
         .arc-green { width: 80%; height: 80%; top: 10%; left: 10%; border-bottom-color: var(--exa-green); animation-direction: reverse; }
-        
         .play-main { position: absolute; background: none; border: none; font-size: 6rem; color: var(--exa-blue); pointer-events: none; z-index: 10; }
-        
         .social-card { background: var(--dark-card); padding: 40px 25px; border-radius: 15px; width: 320px; text-align: center; justify-self: end; backdrop-filter: blur(10px); }
         .social-icons { display: flex; justify-content: center; gap: 35px; margin-bottom: 25px; }
         .social-icons i { font-size: 3rem; transition: 0.3s; }
         .fa-facebook-square { color: #1877F2; } .fa-globe { color: #25D366; }
-        
         .listeners-wrap { margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; }
         .listeners-count { font-size: 3.5rem; font-weight: 800; background: linear-gradient(to right, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff); background-size: 400% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: rainbow 8s linear infinite; display: block; }
-        
         .footer-bar { position: fixed; bottom: 0; width: 100%; height: 100px; background: #ffffff; color: #333; display: grid; grid-template-columns: 1.3fr 0.4fr 1.3fr; align-items: center; z-index: 100; }
         .foot-left { display: flex; align-items: flex-start; gap: 15px; height: 100%; overflow: hidden; }
         .foot-logo-img { height: 100px; }
@@ -50,7 +42,6 @@
         .label-pill { background: #ff0000; color: #fff; padding: 3px 12px; border-radius: 20px; font-weight: 800; font-size: 0.7rem; text-transform: uppercase; display: inline-flex; align-items: center; gap: 8px; width: fit-content; }
         .scroll-container { width: 100%; white-space: nowrap; overflow: hidden; margin-top: 5px; }
         .scroll-text { display: inline-block; font-weight: 800; font-size: 1.35rem; text-transform: uppercase; padding-left: 100%; animation: scroll 20s linear infinite; color: #111; }
-        
         .foot-center { display: flex; justify-content: center; }
         .play-foot { width: 75px; height: 75px; border-radius: 50%; border: 4px solid var(--exa-green); background: none; cursor: pointer; display: flex; justify-content: center; align-items: center; font-size: 2rem; color: var(--exa-blue); }
         .foot-right { display: flex; justify-content: center; padding-right: 15%; }
@@ -58,7 +49,6 @@
         .vol-icon { font-size: 2.3rem; color: var(--exa-blue); }
         .vol-slider { position: absolute; opacity: 0; width: 100%; cursor: pointer; accent-color: var(--exa-blue); transition: 0.3s; }
         .vol-wrap:hover .vol-icon { opacity: 0; } .vol-wrap:hover .vol-slider { opacity: 1; }
-
         @media (max-width: 768px) {
             .wrapper { grid-template-columns: 1fr; padding: 20px; padding-bottom: 120px; display: flex; flex-direction: column; }
             .air-info { text-align: center; order: 2; width: 100%; }
@@ -70,7 +60,6 @@
             .foot-center { grid-column: 2; justify-content: flex-end; }
             .play-foot { width: 60px; height: 60px; font-size: 1.5rem; }
         }
-        
         .hide { display: none !important; }
         @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
         @keyframes spin { to { transform: rotate(360deg); } }
@@ -81,7 +70,7 @@
 </head>
 <body>
     <div id="bg-main"></div>
-    <audio id="radio" preload="auto" autoplay></audio>
+    <audio id="radio" preload="none" autoplay style="display:none;"></audio>
 
     <div class="wrapper">
         <div class="air-info">
@@ -145,6 +134,7 @@
 
             const toggle = () => {
                 if (audio.paused) { 
+                    audio.load();
                     audio.play().catch(()=>{}); 
                     updateUI(false, true); 
                 } else { 
@@ -155,8 +145,10 @@
 
             document.getElementById('cover-trigger').onclick = toggle;
             btnF.onclick = toggle;
+            
             audio.onplaying = () => updateUI(true, false);
             audio.onwaiting = () => updateUI(false, true);
+            audio.oncanplay = () => { if(!audio.paused) updateUI(true, false); };
             document.getElementById('vol-control').oninput = (e) => audio.volume = e.target.value;
 
             async function fetchMetadata() {
@@ -188,6 +180,7 @@
             window.addEventListener('load', () => {
                 fetchMetadata();
                 setInterval(fetchMetadata, 3000);
+				
                 audio.play().catch(()=>{});
             });
         })();
