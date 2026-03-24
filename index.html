@@ -44,66 +44,32 @@
         }
 
         .live-indicator {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(0, 0, 0, 0.5);
-            width: fit-content;
-            padding: 5px 12px;
-            border-radius: 5px;
-            margin-bottom: 15px;
+            display: flex; align-items: center; gap: 8px; background: rgba(0, 0, 0, 0.5);
+            width: fit-content; padding: 5px 12px; border-radius: 5px; margin-bottom: 15px;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        .live-dot {
-            width: 10px;
-            height: 10px;
-            background: #ff0000;
-            border-radius: 50%;
-            box-shadow: 0 0 8px #ff0000;
-            animation: blink 1s infinite;
-        }
-        .live-text {
-            font-weight: 800;
-            font-size: 0.8rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
+        .live-dot { width: 10px; height: 10px; background: #ff0000; border-radius: 50%; box-shadow: 0 0 8px #ff0000; animation: blink 1s infinite; }
+        .live-text { font-weight: 800; font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase; }
 
         .air-info { text-align: left; }
         
         .artist-title, .song-title {
             background: linear-gradient(to right, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff);
-            background-size: 400% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            background-size: 400% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             animation: rainbow 8s linear infinite;
         }
-
         .artist-title { font-size: 2.2rem; font-weight: 800; font-style: italic; text-transform: uppercase; line-height: 1.1; margin-bottom: 2px; }
         .song-title { font-size: 1.3rem; font-weight: 700; text-transform: uppercase; }
 
         .center-stage { display: flex; flex-direction: column; align-items: center; gap: 25px; }
-
-        .top-logo { 
-            height: 100px; 
-            width: auto; 
-            background: transparent !important; 
-            margin-top: -30px; 
-        }
+        .top-logo { height: 100px; width: auto; background: transparent !important; margin-top: -30px; }
 
         .big-cover {
-            width: 360px; 
-            height: 360px; 
-            background: transparent !important;
-            border-radius: 20px;
-            position: relative; 
-            border: 12px solid transparent;
+            width: 360px; height: 360px; background: transparent !important; border-radius: 20px;
+            position: relative; border: 12px solid transparent;
             border-image: conic-gradient(red, yellow, lime, aqua, blue, magenta, red) 1;
-            animation: rotateBorder 4s linear infinite;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.7);
-            display: flex; justify-content: center; align-items: center;
-            overflow: hidden;
-            cursor: pointer; 
+            animation: rotateBorder 4s linear infinite; box-shadow: 0 30px 60px rgba(0,0,0,0.7);
+            display: flex; justify-content: center; align-items: center; overflow: hidden; cursor: pointer; 
         }
         .big-cover img { width: 100%; height: 100%; object-fit: contain; }
 
@@ -113,15 +79,8 @@
         .arc-green { width: 80%; height: 80%; top: 10%; left: 10%; border-bottom-color: var(--exa-green); animation-direction: reverse; }
 
         .play-main { 
-            position: absolute; 
-            background: none; 
-            border: none; 
-            cursor: pointer; 
-            z-index: 10; 
-            font-size: 6rem; 
-            color: var(--exa-blue); 
-            text-shadow: 0 4px 10px rgba(0,0,0,0.5);
-            pointer-events: none; 
+            position: absolute; background: none; border: none; cursor: pointer; z-index: 10; 
+            font-size: 6rem; color: var(--exa-blue); text-shadow: 0 4px 10px rgba(0,0,0,0.5); pointer-events: none; 
         }
 
         .social-card { background: var(--dark-card); padding: 40px 25px; border-radius: 15px; width: 320px; text-align: center; justify-self: end; backdrop-filter: blur(10px); }
@@ -131,31 +90,20 @@
         .social-icons i { font-size: 3rem; transition: 0.3s; }
         .social-icons i:hover { transform: scale(1.1); filter: brightness(1.2); }
 
-        .listeners-wrap {
-            margin-top: 15px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            padding-top: 20px;
-        }
+        .listeners-wrap { margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; }
         .listeners-label { font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px; opacity: 0.9; }
         .listeners-count {
-            font-size: 3.5rem;
-            font-weight: 800;
-            background: linear-gradient(to right, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff);
-            background-size: 400% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: rainbow 8s linear infinite;
-            display: block;
+            font-size: 3.5rem; font-weight: 800; background: linear-gradient(to right, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff);
+            background-size: 400% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            animation: rainbow 8s linear infinite; display: block;
         }
 
+        /* --- FOOTER BAR (PC) --- */
         .footer-bar {
             position: fixed; bottom: 0; width: 100%; height: 100px;
             background: #ffffff; color: #333; display: grid;
-            grid-template-columns: 1.3fr 0.4fr 1.3fr;
-            align-items: center; padding: 0;
-            z-index: 100;
+            grid-template-columns: 1.3fr 0.4fr 1.3fr; align-items: center; padding: 0; z-index: 100;
         }
-
         .foot-left { display: flex; align-items: flex-start; gap: 15px; height: 100%; overflow: hidden; }
         .foot-logo-img { height: 100px; width: auto; background: transparent !important; }
         .foot-text-box { display: flex; flex-direction: column; width: 100%; margin-top: 5px; overflow: hidden; }
@@ -177,18 +125,20 @@
         .vol-wrap:hover .vol-icon { opacity: 0; }
         .vol-wrap:hover .vol-slider { opacity: 1; }
 
+        /* --- CONFIGURAÇÃO EXCLUSIVA TELEMÓVEL --- */
         @media (max-width: 768px) {
-            .wrapper { 
-                grid-template-columns: 1fr; 
-                padding: 20px; 
-                padding-bottom: 120px; 
-                display: flex;
-                flex-direction: column;
-            }
+            .wrapper { grid-template-columns: 1fr; padding: 20px; padding-bottom: 120px; display: flex; flex-direction: column; }
             .air-info { text-align: center; order: 2; }
             .live-indicator { margin: 0 auto 15px auto; }
             .center-stage { order: 1; margin-top: 20px; }
             .social-card { order: 3; width: 100%; max-width: 350px; justify-self: center; }
+
+            /* Alteração no Footer para Telemóvel */
+            .footer-bar { grid-template-columns: 1fr 0.5fr; padding-right: 15px; }
+            .foot-right { display: none !important; } /* Elimina volume no telemovel */
+            .foot-center { grid-column: 2; justify-content: flex-end; } /* Play para a direita */
+            .play-foot { width: 60px; height: 60px; font-size: 1.5rem; }
+            .foot-logo-img { height: 80px; }
         }
 
         .hide { display: none !important; }
@@ -227,7 +177,7 @@
             </div>
             <div class="listeners-wrap">
                 <div class="listeners-label">Ouvintes Online</div>
-                <span class="listeners-count" id="listeners"> </span>
+                <span class="listeners-count" id="listeners">0</span>
             </div>
         </div>
     </div>
@@ -240,7 +190,9 @@
                 <div class="scroll-container"><span class="scroll-text" id="track-name">CONECTANDO...</span></div>
             </div>
         </div>
-        <div class="foot-center"><button class="play-foot" id="btn-foot"><i class="fas fa-play"></i></button></div>
+        <div class="foot-center">
+            <button class="play-foot" id="btn-foot"><i class="fas fa-play"></i></button>
+        </div>
         <div class="foot-right">
             <div class="vol-wrap">
                 <i class="fas fa-volume-up vol-icon"></i>
@@ -253,10 +205,12 @@
         (function() {
             const _0x_stream = atob("aHR0cHM6Ly9zMi5zdG14cC5uZXQ6NzIyMC87"); 
             const _0x_stats = atob("aHR0cHM6Ly9zMi5zdG14cC5uZXQ6NzIyMA==");
+
             document.addEventListener("contextmenu", e => e.preventDefault());
             document.onkeydown = e => {
                 if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) || (e.ctrlKey && e.keyCode == 85)) return false;
             };
+
             const audio = document.getElementById('radio');
             const btnM = document.getElementById('btn-main'), btnF = document.getElementById('btn-foot');
             const coverTrigger = document.getElementById('cover-trigger'), loader = document.getElementById('loader');
@@ -282,7 +236,11 @@
             btnF.onclick = toggleRadio;
             audio.onplaying = () => updateUI(true, false);
             audio.onwaiting = () => updateUI(false, true);
-            document.getElementById('vol-control').oninput = e => audio.volume = e.target.value;
+            
+            const volControl = document.getElementById('vol-control');
+            if(volControl) {
+                volControl.oninput = e => audio.volume = e.target.value;
+            }
 
             function fetchMetadata() {
                 $.getJSON(_0x_stats + "/stats?sid=1&json=1&callback=?", function(r){
