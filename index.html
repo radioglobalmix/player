@@ -1,22 +1,21 @@
-
 <!DOCTYPE html>
-<html lang=pt-PT>
+<html lang="pt-PT">
 <head>
-<title>Radio Globalmix</title>
-<meta name="description" content="Radio Globalmix" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<meta http-equiv=X-UA-Compatible content="IE=Edge"/>
-<meta property="og:title" content="Radio Globalmix Player" />
-<meta property="og:description" content="Radio Globalmix" />
-<link rel="icon" type="image/png" href="https://imgur.com/1mzO56o.png" sizes="48x48" />
-<link rel="icon" type="image/png" href="https://imgur.com/1mzO56o.png" sizes="96x96" />
-<link rel="icon" type="image/png" href="https://imgur.com/1mzO56o.png" sizes="144x144" />
-<link rel="icon" type="image/png" href="https://imgur.com/1mzO56o.png" sizes="192x192" />
-<link rel="apple-touch-icon" href="https://imgur.com/1mzO56o.png" sizes="180x180"/>
+    <title>Radio Globalmix</title>
+    <meta name="description" content="Radio Globalmix" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <meta property="og:title" content="Radio Globalmix Player" />
+    <meta property="og:description" content="Radio Globalmix" />
+    <link rel="icon" type="image/png" href="https://imgur.com/1mzO56o.png" sizes="48x48" />
+    <link rel="icon" type="image/png" href="https://imgur.com/1mzO56o.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="https://imgur.com/1mzO56o.png" sizes="144x144" />
+    <link rel="icon" type="image/png" href="https://imgur.com/1mzO56o.png" sizes="192x192" />
+    <link rel="apple-touch-icon" href="https://imgur.com/1mzO56o.png" sizes="180x180"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
-
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <style>
         :root { --exa-blue: #0084ff; --exa-green: #25d366; --dark-card: rgba(35, 37, 42, 0.8); }
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -30,12 +29,11 @@
         #bg-main {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
             background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
-                        url('https://i.postimg.cc/FHhvRJYJ/2.jpg') no-repeat center center;
+                        url('https://i.postimg.cc/s23Np5rw/3.jpg') no-repeat center center;
             background-size: cover;
             display: block !important;
         }
 
-        /* Estrutura Principal - Desktop Primeiro */
         .wrapper {
             display: grid; 
             grid-template-columns: 1fr 1.5fr 1fr; 
@@ -45,9 +43,45 @@
             gap: 20px;
         }
 
+        /* Estilo do Indicador LIVE */
+        .live-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 0, 0, 0.5);
+            width: fit-content;
+            padding: 5px 12px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .live-dot {
+            width: 10px;
+            height: 10px;
+            background: #ff0000;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #ff0000;
+            animation: blink 1s infinite;
+        }
+        .live-text {
+            font-weight: 800;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
         .air-info { text-align: left; }
+        
+        .artist-title, .song-title {
+            background: linear-gradient(to right, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff);
+            background-size: 400% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: rainbow 8s linear infinite;
+        }
+
         .artist-title { font-size: 2.2rem; font-weight: 800; font-style: italic; text-transform: uppercase; line-height: 1.1; margin-bottom: 2px; }
-        .song-title { font-size: 1.3rem; opacity: 0.8; text-transform: uppercase; }
+        .song-title { font-size: 1.3rem; font-weight: 700; text-transform: uppercase; }
 
         .center-stage { display: flex; flex-direction: column; align-items: center; gap: 25px; }
 
@@ -57,7 +91,7 @@
             background: transparent !important; 
             margin-top: -30px; 
         }
-        
+
         .big-cover {
             width: 360px; 
             height: 360px; 
@@ -70,6 +104,7 @@
             box-shadow: 0 30px 60px rgba(0,0,0,0.7);
             display: flex; justify-content: center; align-items: center;
             overflow: hidden;
+            cursor: pointer; 
         }
         .big-cover img { width: 100%; height: 100%; object-fit: contain; }
 
@@ -87,6 +122,7 @@
             font-size: 6rem; 
             color: var(--exa-blue); 
             text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            pointer-events: none; 
         }
 
         .social-card { background: var(--dark-card); padding: 40px 25px; border-radius: 15px; width: 320px; text-align: center; justify-self: end; backdrop-filter: blur(10px); }
@@ -113,7 +149,6 @@
             display: block;
         }
 
-        /* Rodapé */
         .footer-bar {
             position: fixed; bottom: 0; width: 100%; height: 100px;
             background: #ffffff; color: #333; display: grid;
@@ -143,45 +178,20 @@
         .vol-wrap:hover .vol-icon { opacity: 0; }
         .vol-wrap:hover .vol-slider { opacity: 1; }
 
-        /* --- RESPONSIVIDADE (MOBILE E TABLETS) --- */
-        @media (max-width: 1024px) {
-            .wrapper { grid-template-columns: 1fr 1fr; padding: 0 30px; }
-            .social-card { width: 260px; }
-        }
-
         @media (max-width: 768px) {
-            body { overflow-y: auto; }
             .wrapper { 
                 grid-template-columns: 1fr; 
-                height: auto; 
                 padding: 20px; 
                 padding-bottom: 120px; 
-                gap: 40px;
                 display: flex;
                 flex-direction: column;
             }
             .air-info { text-align: center; order: 2; }
+            .live-indicator { margin: 0 auto 15px auto; }
             .center-stage { order: 1; margin-top: 20px; }
-            .social-card { order: 3; width: 100%; max-width: 350px; justify-self: center; margin-bottom: 20px; }
-            
-            .big-cover { width: 280px; height: 280px; border-width: 8px; }
-            .top-logo { height: 70px; margin-top: 0; }
-            .play-main { font-size: 4.5rem; }
-            .artist-title { font-size: 1.6rem; }
-            .song-title { font-size: 1rem; }
-
-            .footer-bar {
-                grid-template-columns: 1fr 80px;
-                height: 90px;
-            }
-            .foot-right { display: none; } /* Ocultar volume no mobile */
-            .foot-logo-img { height: 80px; }
-            .foot-center { padding-right: 15px; }
-            .play-foot { width: 60px; height: 60px; font-size: 1.5rem; }
-            .scroll-text { font-size: 1.1rem; }
+            .social-card { order: 3; width: 100%; max-width: 350px; justify-self: center; }
         }
 
-        /* Animações */
         .hide { display: none !important; }
         @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
@@ -197,13 +207,17 @@
 
     <div class="wrapper">
         <div class="air-info">
+            <div class="live-indicator">
+                <div class="live-dot"></div>
+                <div class="live-text">Live</div>
+            </div>
             <h1 class="artist-title" id="art-main">GLOBALMIX</h1>
             <p class="song-title" id="song-main">CONECTANDO...</p>
         </div>
 
         <div class="center-stage">
             <img src="https://i.imgur.com/1iioOXn.png" class="top-logo">
-            <div class="big-cover">
+            <div class="big-cover" id="cover-trigger">
                 <div class="loader-wrap" id="loader">
                     <div class="arc arc-blue"></div>
                     <div class="arc arc-green"></div>
@@ -257,9 +271,11 @@
         const audio = document.getElementById('radio');
         const btnM = document.getElementById('btn-main');
         const btnF = document.getElementById('btn-foot');
+        const coverTrigger = document.getElementById('cover-trigger');
         const loader = document.getElementById('loader');
         const trackTitle = document.getElementById('track-name');
-        const statsUrl = "https://s2.stmxp.net:7220/7.html";
+        
+        const statsUrl = "https://s2.stmxp.net:7220";
 
         function updateUI(playing, loading) {
             if (loading) {
@@ -268,60 +284,53 @@
             } else {
                 loader.style.display = 'none';
                 if (playing) {
-                    btnM.classList.add('hide');
+                    btnM.classList.add('hide'); 
                     btnF.innerHTML = '<i class="fas fa-pause"></i>';
                 } else {
-                    btnM.classList.remove('hide');
+                    btnM.classList.remove('hide'); 
                     btnF.innerHTML = '<i class="fas fa-play"></i>';
                 }
             }
         }
 
-        btnM.onclick = btnF.onclick = () => {
+        function toggleRadio() {
             if (audio.paused) { 
-                audio.play().catch(()=>{}); 
-                updateUI(false, true); 
-            } else { 
-                audio.pause(); 
-                updateUI(false, false); 
-            }
-        };
+                 audio.play().catch(()=>{}); 
+                 updateUI(false, true); 
+             } else { 
+                 audio.pause(); 
+                 updateUI(false, false); 
+             }
+        }
+
+        coverTrigger.onclick = toggleRadio;
+        btnF.onclick = toggleRadio;
 
         audio.onplaying = () => updateUI(true, false);
         audio.onwaiting = () => updateUI(false, true);
         document.getElementById('vol-control').oninput = (e) => audio.volume = e.target.value;
 
-        async function fetchMetadata() {
-            const uniqueUrl = statsUrl + '?nc=' + Date.now();
-            const proxyA = `https://api.codetabs.com/v1/proxy/?quest=${encodeURIComponent(uniqueUrl)}`;
-            const proxyB = `https://api.allorigins.win/get?url=${encodeURIComponent(uniqueUrl)}`;
-
-            try {
-                const response = await Promise.any([
-                    fetch(proxyA).then(r => r.text().then(t => ({contents: t}))),
-                    fetch(proxyB).then(r => r.json())
-                ]);
-
-                let raw = response.contents || "";
-                let clean = raw.replace(/<[^>]*>?/gm, '').trim();
-
-                if (clean.includes(',')) {
-                    let parts = clean.split(',');
-                    document.getElementById('listeners').innerText = parts[0].trim();
-                    let song = (parts.length >= 7) ? parts[6].trim().toUpperCase() : "";
-
-                    if (song.length > 2 && trackTitle.innerText !== song) {
+        // API Direta Shoutcast JSONP
+        function fetchMetadata() {
+            $.getJSON(statsUrl + "/stats?sid=1&json=1&callback=?", function(r){
+                if(r) {
+                    const song = r.songtitle ? r.songtitle.toUpperCase() : "RADIO GLOBALMIX";
+                    const listeners = r.currentlisteners || "0";
+                    document.getElementById('listeners').innerText = listeners;
+                    
+                    if (trackTitle.innerText !== song) {
                         trackTitle.innerText = song;
-                        let songParts = song.split(" - ");
-                        document.getElementById('art-main').innerText = songParts[0] || "GLOBALMIX";
-                        document.getElementById('song-main').innerText = songParts[1] || "ONLINE";
+                        const parts = song.split(" - ");
+                        document.getElementById('art-main').innerText = parts[0] || "GLOBALMIX";
+                        document.getElementById('song-main').innerText = parts[1] || "ONLINE";
                     }
                 }
-            } catch(e) {}
+            });
         }
 
         fetchMetadata();
-        setInterval(fetchMetadata, 3000);
+        setInterval(fetchMetadata, 8000);
+        document.addEventListener("contextmenu", e => e.preventDefault());
     </script>
 </body>
 </html>
